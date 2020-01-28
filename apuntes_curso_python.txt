@@ -1,0 +1,1054 @@
+APUNTES PYTHON
+
+1 ¿Por qué Python?
+Es un lenguaje potente
+Con un gran ecosistema de librerías y comunidad open source
+Con múltiples casos de uso con éxito
+  - Backend Web Applications
+    - YT, IG, Dropbox
+    - Frameworks: django, flask, pyramid
+  - Para Ciencia
+    - AstroPy, Biopython, Numpy, Scipy
+  - Cloud and Systems scripting / programming
+    - Ansible, Boto3 (AWS), Azure SDK for Python
+  - Data analytics (BI, ML, Data visualization)
+    - pandas, matplotlib, bokeh, tensor flow
+
+
+2 ¿Qué es Python?
+Desarrollado a finales de los 80 en los Paises Bajos
+Lenguaje de programación de propósito general
+Fuertemente tipado:
+  x = [1,2,3]
+  type(x)
+    /// <class 'list'>
+  z = 77
+  type(z)
+    /// <class 'int'>
+Dinámicamente tipado: chequeo de tipos de datos en tiempo de ejecución y no en tiempo de compilación
+Lenguaje no es interpretado (scripting) aunque se suele decir, se compila a bytcode pero de forma transparente sin que el usuario lo spea con lo que parece que sea interpretado
+Clear Readable and Expresssive
+La sintáxis es limpia, legible y con expresividad
+  - usa tabulaciones y líneas en blanco para separar bloques
+  - no usa paréntesis, llaves o puntos y comas
+Versión actual Python 3 (3.7)
+Python Standard Library: incluye librerías para casi todo (manejo de ficheros, fechas, codecs, memoria, cálculos, logging, email, threading, concurrencia, asíncronía)
+
+https://docs.python.org/3/
+
+
+3 Instalación del entorno
+Descarga en instala python de la web oficial
+  https://www.python.org/downloads/
+
+  Ejecutar instalador
+    - Marcar la opción de añadir python al path
+    - Una vez instalado probar que se ejecutó correctamente
+      - Abrir consola (cmd)
+      - Ejecutar
+        python
+          /// mostrará la información del python instalado
+
+Instalar Visual Studio Code
+  https://code.visualstudio.com/download
+  Instalar extensión de python -> Python (15M descargas)
+
+https://docs.python.org/3.8/using/index.html
+
+
+4 Programando en Python
+  4.1 Ejecución de código
+    4.1.1 REPL (Read-Evaluate-Print-Loop)
+      _ : devuelve el resultado de la última expresión ejecutada
+        2 * 3
+          /// 6
+        _
+          /// 6
+        _ * 5
+          /// 30
+
+      multilínea:
+        >>> for x in range(5):
+        ...     z = x * 3
+        ...     print(z)
+        ...
+
+      ayuda en línea:
+        >>> help()
+          /// entra en la ayuda interactiva
+          /// >>> string
+          /// >>> string.upper
+          /// q para salir de la ayuda del comando
+          /// >>> quit para salir el modo interactivo
+        >>> help(int)
+          /// muestra la ayuda del tipo de dato int
+
+
+      En windows, para salir: ctrl + z + Enter (exit())
+
+
+    4.1.2 Intérprete CLI
+      - para ejecutar los programas python desde consola
+        $ python nombre_programa.py [argumentos]
+
+      - los argumentos son valores que se le pasan al programa python
+        - se puede acceder a ellos dentro del programa con:
+          sys.argv[n]
+            0: nombre del programa
+            1: 1er argumento
+            2: 2do argumento
+
+          > ejemplo.py
+            import sys
+            print(sys.argv[0])
+            print(sys.argv[1])
+
+          $ python ejemplo.py hola
+            /// ejemplo
+            /// hola
+
+        - para el manejo avanzado de parámetros de entrada se puede usar la librería estándar de python 'argparse'
+
+
+
+  4.2 Formateo de Código
+    Indentación de 4 espacios (en vez de tabulaciones)
+      - se prefiere 4 espacios en vez de tabulaciones
+      - nunca se han de mezclar espacios y tabulaciones
+      - se pueden mezclar indentaciones de 2 o 4 pero no en el mismo bloque
+    Bloques empiezan con una sentencia que acaba con :
+      >>> for x in range(5):
+          z = x * 3
+
+
+  4.3 Importar librerías
+    Importar librería completa
+      >>> import math
+      >>> math.sqrt(81)
+        /// 9.0
+
+    Importar elementos de librería
+      >>> from math import sqrt
+      >>> sqrt(81)
+        /// 9.0
+
+    Importar elementos de librería con alias
+      >>> from math import sqrt as raiz_cuadrada
+      >>> raiz_cuadrada(81)
+        /// 9.0
+
+    Importar varios elementos de librería
+      >>> from math import (sqrt, cos, acos)
+
+    Importar todos los elementos de una librería (hay que tener cuidado con la colisión de nombres de nuestro módulo con los del importado)
+      >>> from math import *
+
+
+  4.4 Operadores
+    Aritméticos: +, -, *, /, //, %, +=, -=
+      / (division decimal)
+      // (division entera)
+      % (módulo, resto)
+
+    Lógicos / Relacionales: ==, !=, <, >, <=, >=
+
+
+  4.5 Tipos de datos
+    - Las variables en python almacenan una referencia al valor que contienen (incluídos listas y colecciones)
+    - Son inmutables por lo que si se les asigna un nuevo valor se crea una nueva posición de memoria con dicho valor y se apunta a esta, el recolector de basura se encargará de eliminar la posición de memoria a la que apuntaba anteriormente si no existe ninguna otra referencia a dicha posición de memoria.
+    - La función id(nombre_variable) devuelve el identificador único de un objeto, sirve para saber si diferentes objetos apuntan a una misma posición de memoria
+      >>> a = 5
+      >>> b = a
+      >>> id(a) == id(b)
+        /// True
+    - También se puede usar el operador is
+      >>> a = 5
+      >>> b = a
+      >>> a is b
+        /// True
+      >>> a is None
+        /// False
+    - La función type nos devuelve el tipo del objeto
+      >>> type(4)
+        /// <class 'int'>
+      >>> type([1, 2, 3])
+        /// <class 'list'>
+      >>> def a():
+      ...   return True
+      >>> type(a)
+        /// <class 'list'>
+
+
+    4.5.1 Escalares
+      Enteros (int)
+        - con signo
+        - precisión ilimitada (la marca la memoria de la máquina)
+        - tipos:
+          - decimal (sin prefijo): 345
+          - binario: 0b010 /// 2
+          - octal: 0o77 /// 63
+          - hexadecimal: 0x10 /// 16
+        - función int(x) para convertir a entero (casting)
+          >>> int(3.5) /// 3
+
+
+      Decimales o Coma flotante (float)
+        - doble precisión (64 bits)
+        - notación usada
+          >>> 3.123
+          >>> 3e8 /// 300000000.0 (notación científica)
+          >>> 1.68e-3 (equivale a 0.00168)
+        - función float()
+        - cálculos mixtos con entero y decimal devuelve siempre decimal:
+          >>> 3 + 1.0
+          /// 4.0
+
+
+      Objeto nulo o null (None)
+        - es la ausencia de valor
+        - el REPL no permite declarar datos con tipo none
+          >>> None
+            ///
+          >>> a = None
+          >>> a is None
+            /// true
+
+
+      Boleanos (bool)
+        - Los operadores lógicos devuelven booleanos
+        - Posibles valores True or False
+          >>> bool(1)
+            /// True
+          >>> bool(0)
+            /// False
+          >>> bool(1)
+            /// True
+          >>> bool(-1)
+            /// True
+          >>> bool(1.34)
+            /// True
+          >>> bool(0.0)
+            /// False
+          >>> bool([])
+            /// False
+          >>> bool([1, 2])
+            /// True
+          >>> bool("")
+            /// False
+          >>> bool("asdfs")
+            /// True
+
+    4.5.2 Colecciones
+      - se puede obtener la longitud de cualquier tipo de colección con la función len(objeto)
+        >>> len("hola")
+          /// 4
+
+
+      Cadenas (str)
+        - secuencias inmutables de caracteres utf8
+        - cadenas simples o dobles
+          >>> "Hello"
+            /// "Hello"
+          >>> 'Hello'
+            /// 'Hello'
+          >>> '"Dobles comillas dentro"'
+            /// '"Dobles comillas dentro"'
+        - el espacio sirve para concatenar las cadenas
+          >>> "uno" "dos"
+            'unodos'
+        - multilínea con """...""" o utilizando el carácter de nueva línea \n
+          >>> """Linea 1
+          ... línea 2
+          ... línea 3"""
+            /// 'Linea1\nlinea2\nlínea3'
+
+          >>> 'Línea 1\nLinea 2'
+            /// 'Línea 1\nLinea 2'
+          >>> print('Línea 1\nLinea 2')
+            /// Linea1
+            /// Linea2
+        - \ para escapar caracteres
+        - se pueden acceder a las posiciones de la cadena como con los arrays
+          >>> x = "abcd"
+          >>> x[2]
+            /// 'c'
+        - para ver las funciones que permite el tipo string consultar la ayuda
+          >>> help(string)
+        - se puede concatenar con los operadores + o += pero son ineficientes por lo que se debe usar join
+          >>> "hello " + "World!"
+            /// Hello World!
+          >>> a = "Hello "
+          >>> a += "World!"
+            /// Hello World!
+        - funcion join() para concatenaciones eficienes de múltiples cadenas. 'separador'.join(items)
+          >>> '-'.join(a, b, c, d)
+            /// 'a-b-c-d'
+        - función split() para separar una cadena a partir de un separador
+          >>> "a-b-c-d".split('-')
+            /// [a, b, c, d]
+        - función format() para interpolar valores en cadenas, donde {n} es la posición del parámetro interpolado
+          >>> "Interpolando valor {0}, y valor {1}".format('111', '222')
+
+
+      Bytes (bytes)
+        - secuencias inmutables de bytes
+        - b seguido de comillas simples o dobles
+          >>> b"data"
+          >>> b'data'
+        - se puede convertir de str a byte (encode) y de byte a str (decode)
+        - las comunicaciones de red (http, sockets) transmiten secuencias de bytes
+
+
+      Listas (list)
+        - secuencias mutables de objetos
+        - listas de literales -> []
+          >>> x = [1, 2, 3]
+
+          >>> y = ["uno", "dos", "tres"]
+
+          >>> y[1]
+            /// "dos"
+
+          >>> y[1] = "doce"
+          >>> y[1]
+            /// "doce"
+
+        - se pueden usar indices negativos para acceder a posiciones
+          >>> y = [0, 1, 2, 3]
+          >>> y[-1]
+            /// 3
+
+        - append(elemento) para agregar entradas
+          >>> x.append(4)
+            /// [1, 2, 3, 4]
+
+        - con [inicio:fin] para extraer trozos, se puede omitir el inicio (0 por defecto) o el fin (len(x) - 1)
+          >>> slice = x[1:3]
+            /// [2, 3, 4]
+          >>> slice = x[:1]
+            /// [1, 2]
+          >>> slice = x[1:]
+            /// [2, 3, 4]
+
+        - para clona la lista se puede utilizar el slice sin inicio ni fin [:], lo que devuelve una copia de la lista
+          >>> x = [1, 2, 3]
+          >>> copia__de_x = x[:]
+            /// [1, 2, 3]
+          >>> copia_de_x is x
+            /// False
+          >>> copia_de_x == x
+            /// True
+
+        - con la función index(objeto) podemos buscar el índice de un objeto dentro de la lista
+          >>> nombres = ['pepe', 'pedro', 'jose']
+          >>> i = nombres.index('pedro')
+          >>> i
+            /// 1
+          >>> nombres[i]
+            /// 'pedro'
+
+        - también se puede usar el operador in para saber si un objeto existe o no en la lista
+          >>> 'pepe' in nombres
+            /// True
+
+
+      Diccionarios (dict)
+        - secuencias mutables de pares claves-> valor (array asociativo)
+        - las claves deben ser inmutables (string, numbers, tuplas, pero listas no)
+        - los valores pueden ser mutables
+        - el orden de los elementos es arbitrario, es decir, no están ordenados
+        - diccionarios -> { clave1: valor1, ..., claveN: valorN }
+          >>> frutas = { 'pera': 1, 'manzana': 8, 'tomate': 3 }
+          >>> frutas['pera']
+            /// 1
+
+          >>> frutas['pera'] = 8
+          >>> frutas['pera']
+            /// 8
+
+        - si asignamos una clave que no existe se crea
+          >>> frutas['melon'] = 0
+          >>> frutas
+            /// { 'pera': 1, 'manzana': 8, 'tomate': 3, 'melon': 0 }
+
+        - mediante el constructor dict() se pueden convertir otros tipos a diccionarios (por ej. una lista de tuplas)
+          >>> lista = [ ('pera', 3), ('tomate', 3), ('manzana', 4) ]
+          >>> frutas = dict(lista)
+            /// { 'pera': 3, 'tomate': 3, 'manzana': 4 }
+
+        - se puede agregar un diccionario a otro mediante la función update()
+          >>> verduras = { 'lechuga': 2, 'cebolla': 12 }
+          >>> frutas.update(verduras)
+            /// { 'pera': 3, 'tomate': 3, 'manzana': 4, 'lechuga': 2, 'cebolla': 12 }
+
+        - los diccionarios son iterables
+          >>> for key in frutas:
+          ...   print(key)
+            /// pera tomate manzana
+
+          >>> for fruta, cantidad in frutas:
+          ... print(fruta, cantidad)
+            /// pera 3 tomate 3 manzana 4
+
+        - con la función values obtenemos una lista con los valores del diccionario (sin las claves)
+          >>> for value in frutas.values():
+          ...   print(value)
+            /// 3 3 4
+
+        - igualmente la funcion keys() obtiene una lista con las claves de un diccionario
+
+        - se puede usar el operador in para buscar entre las claves
+          >>> 'pera' in frutas
+            /// True
+
+      Conjuntos (set)
+        - colección desordenada de objetos únicos (sin repetirse)
+        - como literal se declaran como los diccionarios pero sólo con un valor
+          >>> conjunto = { 1, 2, 8, 23 }
+          >>> nombre_frutas = { 'manzana', 'pera', 'tomate' }
+        - el conjunto vacío se declara con el constructor set()
+        - set() también permite crear conjuntos a partir de listas (los duplicados se descartan)
+          >>> set([1, 3, 5, 7, 7, 7, 7])
+            ///{ 1, 3, 5, 7 }
+
+        - permite el uso del operador in
+        - para añadir elementos al conjunto se usa el método add()
+          >>> frutas.add('melon')
+            /// { 'manzana', 'pera', 'tomate', 'melon' }
+
+        - se puede agregar un conjunto a otro mediante la función update()
+          >>> frutas.update({'fresa', 'platano'})
+            /// { 'manzana', 'pera', 'tomate', 'melon', 'fresa', 'platano' }
+
+        - disponen de una serie de métodos algebraicos que le dan gran potencia
+          - union(): unión de dos conjuntos (OR)
+          - intersection(): intersección de 2 conjuntos (AND)
+          - difference(): diferencia entre 2 conjuntos, el conjunto 1 sin los elementos comunes del conjunto 2
+          - symmetric_difference(): diferencia simétrica entre 2 conjuntos, los elementos de conjuntos 1 y 2 que no son comunes entre ellos (XOR)
+          - issubset(): para comprobar si un conjunto es subconjunto de otro
+          - issuperset(): si es superconjunto
+          - isdisjoint(): si los conjuntos no tienen elementos en común
+
+
+      Tuplas (tuple)
+        - secuencia inmutable de objetos heterogéneos
+        - una vez creadas no pueden ser modificadas
+        - delimitadas por paréntesis
+          >>> tupla = ("peras", 4.9, [1, 2, 3])
+        - se pueden acceder a los elementos con con las listas tupla[posicion]
+          >>> tupla[1]
+            /// 4.9
+        - se pueden tener tuplas anidadas
+          >>> nested = ((1, 3), (2, 4), (1, 4))
+        - para crear una tupla de un solo elemento hay que poner un trailing coma, para que python no lo interprete como una expresión
+          >>> mono_tupla = (8,)
+        - al declarar tuplas con múltiples elementos se pueden omitir los paréntesis
+          >>> tupla = 1, 2, 3, 8, 24
+            /// (1, 2, 3, 8, 24)
+        - se puede hacer unpacking (como el destructuring de JS) con las tuplas
+          >>> min, max = get_min_and_max([2, 8, 20, 4])
+          >>> print(min, max)
+            /// 2 20
+        - se puede usar la función tuple() para crear tuplas a partir de otros tipos de objeto
+          >>> tuple([1, 3, 4])
+            /// (1, 3, 4)
+        - con el operador in podemos comprobar si existe un elemento dentro de una tupla (con not in si no existe)
+          >>> 3 in (1, 3, 6 )
+            /// True
+          >>> 3 not in (1, 3, 6 )
+            /// False
+
+
+      Rangos (range)
+        - progresión aritmética de enteros
+        - se crean sólo con el constructor range(inicio, fin, incremento), no tiene forma de crear con literar
+        - puede omitirse el valor de inicio con lo que empezaría desde el 0
+          >>> range(5)
+            /// range(0, 5)
+          >>> range(3, 5)
+            /// range(3, 5)
+          >>> for i in rante(5):
+          ...   print(i)
+            /// 0 1 2 3 4
+        - se puede especificar el valor del incremento (step) en el tercer parametro, por defecto es 1
+          >>> list(range(0, 10, 2))
+            /// [0, 2, 4, 6, 8]
+        - no se utilizan mucho en python moderno, sólo para crear variables de secuencias
+
+
+
+    4.6 Control de Flujo
+      4.6.1 Condicionales
+        if-elif-else
+          - la expresión es interpretada igual que con el operador de casting bool()
+          >>> if expression1:
+          ...     print("expression is True")
+          ... elif expression2:
+          ...     printf("expresssion2 is True")
+          ... else:
+          ...     print("expression and expression2 are False")
+
+        while loops
+          >>> while expression:
+          ...     print("iteración mientras expresión sea True")
+
+          la sentencia 'break' interrumpe y sale del bucle actual
+          >>> while expression:
+          ...     x * 3
+          ...     if x > 5:
+          ...         break
+          ...
+          ... print("cuando se ejecute break venimos aquí, y x es mayor q 5")
+
+        for-loop
+          - recorre los elementos dentro de una colección/iterable
+            >>> for fruit in fruits:
+            ...     print(fruit, fruits[fruit])
+              /// pera 8
+              /// manzana 8
+              /// tomate 3
+              /// melon 0
+
+      4.6.3 Excepciones
+        - Sirven para manejar errores de código
+        - interrumpen el flujo de ejecución del programa y se lo pasan al manejador de la excepción (excepción handler)
+        - Son muy utilizadas en python
+
+        try-except-finally
+          - el bloque try ejecuta el código susceptible de lanzar una una excepción
+          - el bloque except ejecuta captura la excepción del tipo especificada en caso de ser lanzada
+            >>> def convert (x):
+            ...   try:
+            ...     res = int(x)
+            ...   except ValueError:
+            ...     print('Conversion Error')
+            ...     res = -1
+            ...   except TypeError:
+            ...     print('Conversion Error')
+            ...     res = -1
+            ...   return res
+
+          - se pueden agrupar los casos de excepciones
+            >>> def convert (x):
+            ...   try:
+            ...     res = int(x)
+            ...   except (ValueError, TypeError):
+            ...     print('Conversion Error')
+            ...     res = -1
+            ...   return res
+
+          - si se quiere usar una captura de excepción que no haga nada se utiliza el operador 'pass', que indica que no se hace nada pero sirve para que no de un error de formateo de código (indentación de bloque)
+            >>> def convert (x):
+            ...   x = -1
+            ...   try:
+            ...     res = int(x)
+            ...   except (ValueError, TypeError):
+            ...     pass
+            ...   return res
+
+          - las excepciones se pueden convertir en cadenas con la función str() para temas de logging o trazas
+            >>>   except (ValueError, TypeError) as e:
+            ...     print(str(e), file=sys.stderr)
+
+          - la función raise permite lanzar una excepción, si no se especifican parámetro lanzará la excepción que está siendo tratada
+            >>> def convert (x):
+            ...   try:
+            ...     res = int(x)
+            ...   except (ValueError, TypeError) as e:
+            ...     print(str(e), file=sys.stderr)
+            ...     raise
+            ...   return res
+
+          - las excepciones son parte importante de una función y de módulos que están compuestos por estas, por lo que hay que documentarlas correctamente con docstrings
+          - lo ideal es lanzar excepciones estándar de python (IndexError, KeyError, ValueError, TypeError, OSError)
+          - los errores de programación no deben ser capturados (IndentationError, SyntaxError, ...), a no ser que sea un programa parser o un IDE
+          - generalmente no deberíamos comprobar errores de tipos datos y dejar que la excepción sea lanzada
+          - para crear excepciones se hace con el constructor correspondiente
+            >>>   except ZeroDivisionError:
+            ...     raise ValueError("Contenido del error/excepción")
+
+          - para ejecutar acciones siempre depués de ejecutar un bloque try-catch podemos utilizar la cláusula finally al final del bloque
+            >>> def convert (x):
+            ...   try:
+            ...     res = int(x)
+            ...   except (ValueError, TypeError) as e:
+            ...     print(str(e), file=sys.stderr)
+            ...   finally:
+            ...     print("Converstion finished") # always prints this, either an exception was raised or not.
+            ...   return res
+
+
+    4.7 Modularidad
+      4.7.1 funciones
+        - tiene un nombre para ser invocada
+        - unos parámetros de entrada para especificarle datos
+        - y puede tener una función return para terminar la ejecución de la función y devolver un valor
+          def nombre_funcion(parámetros):
+              ...código...
+              return value
+
+          >>> def cuadrado(x):
+          ...     print("Calculando el cuadrado de x")
+          ...     return x * x
+
+          >>> cuadrado(3)
+            /// 9
+        - los parametros pasados a una función son por referencia, es decir, se pasa la referencia del objeto por lo cual si se modifica el valor referenciado también lo hace en la variable original puesto que ambas referencias apuntan al mismo valor
+        - si se quiere operar con una copia del valor es responsabilidad de la función crear una copia del valor referenciado
+        - existen los valores por defecto de parámetros, si no se especifica el valor toma el valor por defecto (han de ir después de los parámetros que no tengan valor por defecto)
+          >>> def cuadrado(x = 2):
+          ...   return x * x
+          >>> cuadrado()
+            /// 4
+        - se pueden invocar las funciones nombrando los parámetros lo que permite especificar el orden de estos como se quiera
+          >>> def division(dividendo, divisor = 2):
+          ...   return dividendo / divisor
+          >>> division(divisor = 4, dividendo = 8)
+            /// 2
+
+      4.7.2 módulos
+        - contienen funciones y/o otros módulos (mediante imports)
+
+
+    4.8 Comentarios y Documentación
+      Comentarios
+        - se usan con el carácter #
+        - son de una sóla línea
+        - pueden ponerse detrás de una línea de código
+          >>> # Esto es un comentario de código
+          >>> print("linea de codigo") # esto es un comentario detrás de una línea de código
+        - shebang: sirve para especificar la versión de python con la que se ejecuta el script
+          en la primera línea del script/programa se ha de poner el operado shebang seguido de la carpeta donde se encuentra el intérprete de python seguido de la versión
+            > mi_script.py
+                #!/usr/bin/env python3
+                ...codigo del script...
+
+      Documentación
+        - se hace mediante docstrings (cadenas en el código que se convierten en documentación)
+        - se usa la sintáxis de cadenas multilínea
+        - se usa para documentar módulos y cada una de sus funciones
+          - módulos: se pone la documentación en la primera línea del ficheros
+          - funciones: se pone en la primera línea dentro de la función (después de la cabecera de la función 'def mi_funcion()')
+            > mi_script.py
+              """Documentación del Módulo
+
+              """
+
+              def funcion_1 (x):
+                """Imprime el valor de x
+
+                Args:
+                  x: El valor de la cadena a imprimir
+                """
+                print(x)
+
+              def function_2 (x, y):
+                """Suma dos valores numéricos
+
+                Args:
+                  x: Primer operando
+                  y: Segundo operando
+
+                Returns:
+                  El valor de la suma entre x e y
+                """
+                return x + y
+
+          - una vez declarada se puede obtener/consultar mediante la función help en el REPL
+            >>> import(mi_script)
+            >>> help(mi_script)
+            >>> help(mi_script.funcion_1)
+
+    4.9 Objetos
+      - Todo en python son objetos: enteros, floats, colecciones, objetos, funciones, módulos, etc.
+      - función dir(objeto) para inspeccionar el contenido de un objeto
+
+    4.10 Scopes
+      Los scopes de las variables de python son:
+        - Local: local a la función donde es definido
+        - Enclosing: local a todas las funciones definidas en el módulo
+        - Global: el nivel superior del módulo
+        - Built-in: proporcionado por los módulos incluídos (por defecto) en python
+      Cuando se referencia a un objecto se mira en ese orden (L-E-G-B)
+      Cuando en una función se asigna una variable global hay que usar la palabra global para que python sepa que se refiere a una variable global, porque si no creará una variable local
+        >>> count = 0
+        >>>
+        >>> def count_items (c):
+        >>>   count = c   # si no espeficamos que es global la crea local
+        >>>
+        >>> count_items(6)
+        >>> print(count)
+          /// 0
+
+        >>> count = 0
+        >>>
+        >>> def count_items (c):
+        >>>   global count = c  # si especificamos que es global asignará el valor a la variable global
+        >>>
+        >>> count_items(6)
+        >>> print(count)
+          /// 6
+
+
+    4.11 Iterables
+      4.11.1 Comprehensions
+        - Existen para listas, conjuntos y diccionarios
+        - Son legibles y expresivas, tratan de acercarse al lenguaje natural
+        - List comprehensions, la expresión es [ expresion(item) for item in iterable ]
+          >>> words = ['esto', 'es', 'una', 'cadena', 'de', 'palabras', 'para', 'crear', 'una', 'lista']
+          >>> [ len(word) for word in words ]
+            /// [4, 2, 3, 6, 2, 8, 4, 5, 3, 5]
+
+          >>> [ len(str(factorial(x)))  for x in range(20) ]
+            /// [1, 1, 1, 1, 2, 3, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18]
+
+        - Set comprehensions, la expresión es { expresion(item) form item in iterable }
+          >>> { len(str(factorial(x)))  for x in range(20) }
+            /// {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18}
+
+        - Dictionay comprehensions, la expresión es { expresion(key):expresion(value) for item in iterable }
+          >>> pais_capital = { 'españa': 'madrid', 'portugal': 'lisboa', 'italia': 'roma' }
+          >>> capital_pais = { ciudad:pais for pais, ciudad in pais_capital.items() }
+          >>> print(capital_pais)
+            /// {'madrid': 'españa', 'lisboa': 'portugal', 'roma': 'italia'}   # par clave valor invertido
+
+        - Los elementos del iterable pueden ser filtrados mediante una función/expresión, utilizando el condicional if: [ expresion(item) for item in iterable if expresion(item) ]
+          >>> def is_odd(x):
+          ...     return x % 2 == 1
+          >>> [ x for x in range(30) if is_odd(x) ]
+            ///[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29]
+
+      4.11.2 Protocolos de Iteración
+        - Protocolo Iterable: los objetos iterables pueden pasarse al constructor iter() para obtener un objeto iterador
+          >>> iterator = iter(iterable)
+
+        - Protocolo Iterator: los objetos iteradores pueden ser pasados a función next() para obtener el siguiente elemento del iterador
+          >>> item = next(iterator)
+
+          >>> iterable = [ 'primavera', 'verano', 'otoño', 'invierno' ]
+          >>> iterator = iter(iterable)
+          >>> next(iterator)
+            /// primavera
+          >>> next(iterator)
+            /// verano
+          >>> next(iterator)
+            /// otoño
+          >>> next(iterator)
+            /// invierno
+          >>> next(iterator)
+            /// lanza excepción de StopIteration cuando se ha terminado de iterar el iterador
+
+      4.11.3 Generadores
+        - especifican secuencias iterables
+        - todos los generadores son iteradores
+        - se evaluan de manera perezosa (lazy), sólo calculan el siguiente valor cuando son invocados
+        - pueden generar secuencias de valores infinatas, generando un valor cada vez que son invocados
+        - se pueden componer con pipelines
+        - una función genradora contiene una sentencia yield y devolverá un objeto generador (el cual es iterable)
+          >>> def my_generator:
+          ...   yield 1
+          ...   yield 2
+          ...   yield 8
+          >>>
+          >>> g = my_generator()
+          >>> next(g)
+            /// 1
+          >>> next(g)
+            /// 2
+          >>> next(g)
+            /// 8
+          >>> next(g)
+            /// StopIteration exception
+          >>> for v in my_generator():
+          ...   print(v)
+            /// 1 2 3
+
+        - algunas utilidades de iteración en python:
+          sum(), any(), zip(), all(), min(), max(), enumerate(), chain(), islice(), count()
+
+
+    4.12 Classes
+      - todo en python con objetos (instancias de clases del tipo que sean)
+      - definen la estructura y comportamiento de los objetos
+      - se declaran usando la palabra reservada class y con el nombre de la instancia el CamelCase por convención
+        >>> class MiNombreDeClase:
+        ...   pass
+        ...
+        >>> obj = MiNombreDeClase()
+        >>> type(obj)
+          /// <class 'MiNombreDeClase'>
+
+
+      4.12.1 Métodos
+        - métodos de clase, self siempre es el primer argumento de un método de clase
+          >>> class Flight:
+          ...
+          ...   def number(self):
+          ...     return 312
+          ...
+          >>> f = Flight()
+          >>> f.number()    # equivale a la versión explícita con el paso por parámetro de self Flight.number(f), esta notación no se usa
+            /// 312
+
+      4.12.2 Constructores / Inicializadores
+        -  en python los constructores son implícitos e invocan al método inicializador __init__, por lo que se declara el inicializador y no el constructor. Aunque a efectos del programdor son lo mismo
+          >>> class Flight:
+          ...
+          ...   def __init__(self, number):
+          ...     self._number = number
+          ...
+          ...   def number(self):
+          ...     return self._number
+
+        - como norma los detalles de implementación se prefijan con _ (_number), similar a cómo se hace con JS
+        - todas las propiedades son públicas en python, no hay diferentes tipos de acceso como en C/Java (public, private, protected)
+
+      4.12.3 Polimorfismo
+        - el polimorfismo en python se hace mediante el uso de duck typing, a diferencia de lenguajes estáticos que tienen que declarar las clases en tiempo de compilación
+        - para ellos se le puede pasar una función a un método de la clase el cual invoca la función en tiempo de ejecución. Dependiendo de la función que se le pase el método hará una cosa u otra,
+          >>> class Flight:
+          ...
+          ...   def __init__(self, number, seats):
+          ...     self._number = number
+          ...     self._seats = seats
+          ...
+          ...   def print_card(self, print_method):
+          ...     print.method(self._number, self._seats)
+
+      4.12.4 Herencia
+        - en python la herencia se suele utilizar para compartir funcionalidad entre diferentes clases
+        - la herencia se especifica mediante paréntesis
+        - en este caso las clases Airbus y Boeing heredan de Aircraft para obtener la funcionalidad común del método del número de sitio, pero la clase Aircraft no tiene sentido que sea instanciada por separado
+          >>> class Aircraft:
+          ...   def __init__(self, registration):
+          ...     self._registration = registration
+          ...
+          ...   def num_seats(self):
+          ...     rows, row_seats = sum(self.seating_plan())
+          ...     return len(rows) + len(row_seats)
+          ...
+          >>> class Airbus(Aircraft):
+          ...   def model(self):
+          ...     return "Airbus"
+          ...
+          ...   def seating_plan(self):
+          ...     return range(1,23), "ABCDEF"
+          ...
+          ...
+          >>> class Boeing(Aircraft):
+          ...   def model(self):
+          ...     return "Boeing 747"
+          ...
+          ...   def seating_plan(self):
+          ...     return range(1,34), "ABCD"
+          ...
+          ...
+          >>> airbus1 = Airbus("112")
+          >>> boeing1 = Boeing("A345")
+          >>> airbus1.num_seats()
+            /// 132
+          >>> boeing1.num_seats()
+            /// 495
+
+
+    4.13 Gestión de Ficheros
+      - Los ficheros son una secuencia de bytes que están almacenados
+      - Para el texto python utiliza "universal newlines" caracteres, para que sean válidos en todos los SO's (\n o \r\n)
+      - Si no se especifica el encoding python utilizará el establecido por defecto (sys.getdefaultencoding()) generalmente utf-8
+
+      4.13.0 Aperftura: con open(file, mode) donde:
+        - mode: es el modo de apertura: lectura (r), escritura (w), añadir (a), binario (b) y texto (t)
+          - binario: contenido en crudo de los bits del fichero
+          - texto: contenido en caracteres de texto del fichero, para leer se decodifica (los bits a texto) y para escrbir se codifican (el texto a bits)
+
+        - para cerrar es con close()
+
+      4.13.1 Escritura
+        - hay que abrirlo en modo escritura (w), (t para formato texto y b formato binario), como salida write() devuelve el número de caracteres escritos
+          >>> f = open('mi_fichero.txt', 'wt', 'utf-8')
+          >>> f.write('nuevo contenido de texto en el fichero\n')
+          >>> f.write('hay que especificar el fin de línea \n')
+          >>> f.close()
+
+        - también existe el método writelines() al que se le pasa una lista de cadenas y las escribe en el fichero como si llamásemos a write()
+          >>> f.writelines([
+            'primera línea a escribir\n',
+            'primer trozo de la segunda línea',
+            'segundo y último trozo de la segunda línea\n'
+          ])
+
+      4.13.2 Lectura
+        - hay que abrirlo en modo lectura (r), se pueden especificar el número de bytes a leer con read()
+          >>> f = open('mi_fichero.txt', 'rt', 'utf-8')
+          >>> f.read(35)
+            /// 'nuevo contenido de texto en el fich'
+          >>> f.read()
+            /// 'ero\nhay que especificar el fin de línea \n'
+          >>> f.read()    # una vez en el final del fichero no se obtiene nada con read()
+            /// ''
+
+        - para mover el puntero de lectura en el fichero se usa el método seek()
+          >>> f.seek(0)     # va al inicio del fichero
+
+        - para obtener en el valor del puntero de lectura/escritura se usa el método tell()
+          >>> f.tell()      # indica en qué punto está el puntero
+            /// 0
+
+        - Python provee una opción mejor para la lectura de ficheros línea a línea, readline()
+          >>> f.readline()
+            /// 'nuevo contenido de texto en el fichero\n'
+          >>> f.readline()
+            /// 'hay que especificar el fin de línea \n'
+          >>> f.seek(0)     # va al inicio del fichero
+
+        - readlines() permite leer todas las líneas y meterlas en una lista, pero hay que tener en cuenta el uso de memoria (para fichero pequeños)
+          >>> f.readlines()
+            /// [ 'nuevo contenido de texto en el fichero\n', 'hay que especificar el fin de línea \n' ]
+          >>> f.close()
+
+      4.13.3 Agregar
+        - hay que abrir en modo append
+          >>> f = open('mi_fichero.txt', mode = 'at', enconding = 'utf-8')
+
+      4.13.4 Iteradores
+        - los ficheros cumplen con el protocolo iterador, por lo que pueden ser iterados
+          >>> f = open('mi_fichero.txt', mode = 'rt', enconding = 'utf-8')
+          >>> for line in f:
+          ...   print(line)
+          ...
+          >>> f.close()
+
+      4.13.5 Context Managers
+        - la función open() devuelve un objeto del tipo context manager, el cual permite manejar la apertura y cierre del fichero con un bloque with...as
+          >>> def read_lines(filename):
+          ...   with open(filename, mode = 'rt', enconding = 'utf-8') as f:
+          ...     return [ line.strip() for line in f ]
+
+      4.13.6 Escritura ficheros binarios
+        - hay que abrir en modo binario y especificar que la cadena es en formato byte
+          >>> with open('mi_fichero.txt', mode = 'wb', enconding = 'utf-8') as f:
+          ...   f.write(b'\x00\x28\x00')
+          ...   f.write(b'\x34\x28\x12\14')
+          ...   first_write_bookmark = f.tell()
+          ...   f.write(b'\x00\x28\x00')
+          ...   f.write(b'\x34\x28\x12\14')
+          ...   second_write_bookmark = f.tell()
+
+      4.13.7 File like Objects
+        - son objetos que cumplen con el protocolo de el objeto fichero (implementan sus métodos: read, readlines, seek, write, writelines, etc.) por lo que pueden ser manejados como ficheros
+        - en python hay objetos de este estilo como urllib.urlopen
+
+
+    4.15 Testing
+      - La librería estándar unittest de python cubre: tests unitarios, de integración y de aceptación
+      - Los tests se agrupan en test cases (se crean definiendo una clase con unittest.TestCase como primer parámetro (self))
+        >>> class TextAnalysisTests(unittest.TestCase):
+        ...
+      - Implementa fixtures (trozos de código que se ejecutan antes/después de la ejecución de cada test) para crear un entorno/estado estable en la ejecución de los tests
+      - Aserciones que definen si un test pasa o no (assertEqual(), assertTrue(), assertRaises())
+      - los tests son funciones prefijadas con test_
+      - Para crear fixtures se utilizan los métodos:
+        - setUp(): se ejecuta antes de ejecutar cada función de test
+        - tearDown(): se ejecuta después de ejecutar cada función de test
+      - Para ejecutar todos los testCases con los tests que contiene se usa el método unittest.main()
+      - mirar el fichero text_analyzer.py para ver una test suite de ejemplo creada
+
+
+    4.16 Depurar
+      - PDB (Python DeBugger) es un depurador de línea de comandos
+      - Para inicializarlo en una parte en concreto del código se usa el método set_trace()
+        >>> import pdb
+        >>>
+        >>> pdb.set_trace()   #inicia el depurador
+      - Una vez en el modo depurardor podemos obtener ayuda con el comando help
+        (Pdb) help
+      - Para obtener ayuda de un comando de depuración en particular help seguido del comando
+        (Pdb) help
+      - Para poder depurar hay que la lanzar programa python con la depuración activada
+        $ python3 -m pdb nombre_programa.py
+
+
+5.- Entornos Virtuales
+  - El módulo venv permite crear entornos virtuales de python (configuraciones diferentes para proyectos diferentes)
+  - para crear un entorno virtual sólo especificamos el nombre del directorio, donde creará el entorno virtual
+    $ python3 -m venv my_project
+    $ cd my_project
+  - para activarlo hay que ejecutar el script bin/activate creado por el comando de creación
+    $ source bin/activate
+    (my_project) $
+  - para salir hay que ejecutar el comando deactivate
+    (my_project) $ deactivate
+    $ cd ..
+
+
+6.- Paquetes
+  6.1.- Configuración y Distribución Paquetes
+    - el módulo distutils de python nos va a permitir declarar e instalar dependencias de nuestro proyecto (similar a npm / package.json)
+    - en la raíz del proyecto hay que crear un fichero setup.py que define la configuración del proyecto
+      $ cat setup.py
+        from distutils.core import setup
+
+        setup(
+          name = 'palyndrome',
+          version = '1.0',
+          py_modules = [ 'palyndrome' ], # listado de módulos de nuestro proyecto sin la extensión .py
+
+          # metadata
+          author = 'Iván',
+          author_email = 'imerinro@capgemini.com',
+          description = 'La descripción del proyecto',
+          license = 'public domain',
+          keywords = 'palyndrome numbers math'
+        )
+    - el contenido del parámetro py_modules se instalará en nuestro proyecto (en este caso el módulo palyndrome.py)
+    - para instalar las dependencias
+      $ python3 setup.py install
+    - para comprobar que nuestro paquete está bien creado lo podemos importar desde otro programa, en este caso desde el REPL
+      $ python3
+      >>> import palyndrome
+      >>> palyndrome.__file__
+        /// '/Users/ivanmerinrodriguez/Sites/cap/python_training/courses/palyndrome/palyndrome_env/lib/python3.7/site-packages/palyndrome.py'
+
+    - también es posible hacer bundles para distribuir paquetes para que puedan ser consumidos por las aplicaciones de otros programadores
+      para ello usar la opción sdist (short distribution) que creará el paquete distribuible en la carpeta dist
+      $ python3 setup.py sdist --format zip
+      $ ls dist/
+        /// palyndrome-1.0.zip
+    - este paquete zip podrá ser instalado añadiéndolo como dependencia en el fichero setup.py
+    - para ver la ayuda del instalador de proyectos ejecutar
+      $ python3 setup.py --help
+
+  6.2.- Instalación de Paquetes
+    - pip es la herramienta de python para la instación de paquetes
+    - tasmbién existe Anaconda más dedicado a paquetes de data science (anaconda.com)
+    - pip ataca al repositorio de paquetes python package index (pypi o CheeseShop) para instalar las dependencias (https://pypi.org/)
+    - para actualizar el respositorio de pip (en nuestro entorno virtual)
+      $ python3 -m venv my_env
+      $ source my_env/bin/activae
+      (my_env) $ pip install --upgrade pip
+    - para instalar un paquete se hace con pip install nombre_paquete
+      (my_env) $ pip install nose
+        /// nose successfully installed
+      (my_env) $ python3
+      >>> import nose
+      >>> nose.__file__
+      '/Users/ivanmerinrodriguez/Sites/cap/python_training/courses/palyndrome/palyndrome_env/lib/python3.7/site-packages/nose/__init__.py'
+    - pip también permite instalar paquetes desde ficheros de paquete (no sólo desde el repo), para instalar el paquete que hemos generado anteriormente
+      (my_env) $ cd dist/
+      (my_env) $ pip install palyndrome-1.0.zip
+    - para desinstalar paquetes
+      (my_env) $ pip uninstall nose
+
+
+
+
+
+
+5.- Frameworks
+  5.1.- Django
+  5.2.- Flask
+
+
+
+
+

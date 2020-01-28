@@ -1,0 +1,64 @@
+APUNTES PYTHON
+
+1.- ¿Por qué Python?
+
+Es un lenguaje potente
+Con un gran ecosistema de librerías y comunidad open source
+Con múltiples casos de uso con éxito
+  - Backend Web Applications
+    - YT, IG, Dropbox
+    - Frameworks: django, flask, pyramid
+  - Para Ciencia
+    - AstroPy, Biopython, Numpy, Scipy
+  - Cloud and Systems scripting / programming
+    - Ansible, Boto3 (AWS), Azure SDK for Python
+  - Data analytics (BI, ML, Data visualization)
+    - pandas, matplotlib, bokeh, tensor flow
+
+2.- ¿Qué es Python?
+
+Desarrollado a finales de los 80 en los Paises Bajos
+Lenguaje de programación de propósito general
+Fuertemente tipado:
+  x = [1,2,3]
+  type(x)
+    /// <class 'list'>
+  z = 77
+  type(z)
+    /// <class 'int'>
+Dinámicamente tipado: chequeo de tipos de datos en tiempo de ejecución y no en tiempo de compilación
+Lenguaje no es interpretado (scripting) aunque se suele decir, se compila a bytcode pero de forma transparente sin que el usuario lo spea con lo que parece que sea interpretado
+Clear Readable and Expresssive
+La sintáxis es limpia, legible y con expresividad
+  - usa tabulaciones y líneas en blanco para separar bloques
+  - no usa paréntesis, llaves o puntos y comas
+Versión actual Python 3 (3.7)
+Python Standard Library: incluye librerías para casi todo (manejo de ficheros, fechas, codecs, memoria, cálculos, logging, email, threading, concurrencia, asíncronía)
+
+https://docs.python.org/3/
+
+
+3.- Instalación del entorno
+Descarga en instala python de la web oficial
+  https://www.python.org/downloads/
+
+  Ejecutar instalador
+    - Marcar la opción de añadir python al path
+    - Una vez instalado probar que se ejecutó correctamente
+      - Abrir consola (cmd)
+      - Ejecutar
+        python
+          /// mostrará la información del python instalado
+
+Instalar Visual Studio Code
+  https://code.visualstudio.com/download
+  Instalar extensión de python -> Python (15M descargas)
+
+https://docs.python.org/3.8/using/index.html
+
+
+
+
+
+
+
