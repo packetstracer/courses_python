@@ -1,0 +1,201 @@
+APUNTES CURSO MACHINE LEARNING WITH PYTHON
+
+
+1.- Machine Learning
+  - Es una manera de solución de problemas, diferente a la tradicional forma de programas algorítmicos, en la
+  que se entrena a base de datos a un algoritmo el cual genera un modelo para la solución del problema
+  - Dos tipos fundamentales de ML:
+    - Supervisada: se entrena a un algoritmo de ML supervisado con datos / características específicas y el algoritmo
+    obtiene un model para la predicción de dichas características para nuevas entidades. Por ej: casas (entidades) de
+    las cuales se especifican m2, habitaciones, y precio, se generaría un modelo capaz de obtener dichas características de
+    de una nueva casa
+    - No Supervisada: el algoritmo no supervisado es proporcionado con un conjunto de datos (entidades). este es capaz
+    de hacer grupos por características de dichas entidades y crear un modelo para predecir a qué grupo (según característica)
+    pertenece una nueva entidad proporcionada. Por ej: se le pasan fotos de animales, de las cuales extrae por ejemplo especia:
+    perro, gato, ratón, etc. se le pasa una foto de un animal al modelo y es capaz de identificar que tipo de especie es.
+
+2.- Librería Python
+  - numpy: para computación científica (algebra lineal, arrays mutidimensionales)
+  - pandas: para manejar data frames: acceder y analizar los datos
+  - matplotlib: librería de gráficas 2D
+  - scikit-learn: herramientas sencillas para hacer operaciones de machine learning (esta es la q más se utilizará)
+    - algoritmos para para crear/entrenar los modelo predictivos
+    - preprocesar datos
+    - evaluación del funcionamiento
+    - y más...
+
+3.- Jupyter Notebook
+  - es un entorno (IDE) para crear código y texto, y ejecutar el código y gráficas en dicho entorno.
+  - permite generar documentación de los resultados y compartirlos
+  - soporta otros lenguajes de programación: ruby, php, c#, haskell, etc.
+  - en el curso se recomienda instalar anaconda porque integra python, jupyter notebook y otras herramientas para ML
+
+4.- Machine Lerning Workflow
+  - ML Workflow: "An orchestrated and repeatable pattern which systematically transforms and processes information to create prediction solutions"
+    - Preguntarse la pregunta correcta: definir dicha pregunta para atacar el problema con éxito
+      - Objetivos que queremos obtener
+      - Datos que necesitamos
+      - Procesos que podemos aplicar
+    - Preparar los datos: para responder a la pregunta
+    - Seleccionar el algorimo a utilizar
+    - Entrenar el algorimo para obtener el modelo predictivo: pasando al algoritmo un subconjunto de los datos
+    - Probar el modelo: probar su precisión con subconjunto de datos diferente a los del subconjunto con el que fue entrenado
+    * si el modelo necesita refinamiento iremos ejecutando pasos
+  - Cosas a tener en cuenta:
+    - los primeros pasos del workflow son los más importantes, puesto que los posteriores son dependientes de los anteriores
+    - ve para atrás en los pasos si es necesario, el conocimiento que se va adquiriendo afecta a los pasos anteriores
+    - los datos no son como los necesitabas, por lo que también tendrás que ir cambiando los datos
+    - cuanto más datos mejor, a mayor cantidad de datos mejor resultado
+    - nunca persigas una solución que tornó ser mala, mejor reevalua, repara o busca otra solución
+
+  5.- Pregúntate la Pregunta correcta
+    - Necesitamos una frase que dirija y valide nuestro trabajo
+        ej: ¿predecir si una persona desarrollará diabetes?
+    - Definir un objetivo, un punto de partida y cómo conseguir el objetivo
+      - Objetivos de la sentencia de la solución
+        - definir el ámbito/alcance
+          ej: usar datos del estudio pima de diabetes en la india
+        - definir el rendimiento esperado a conseguir
+          ej: obtener un >70% de acierto
+        - definir el contexto de uso
+          ej: contexto médico, nunca se sabrá a ciencia cierta si alguien desarrollará la enfermedad
+        - definir cómo se creará la solución
+          ej: procesar los datos del estudio pìma, transformar los datos según sea necesario,
+      - Tras aplicar esto transformamos la frase inicial en algo que representa el problema a resolver con mayor exactitud
+        ¿predecir si una persona desarrollará diabetes?
+        ==>
+        Usar el flujo de trabajo de ML para procesar y transformar los datos del estudio médico Pima de la India para
+        crear un modelo de predicción. Este modelo debe predecir qué personas son propensas a desarrollar diabetes con
+        un porcentaje de acierto del 70% o mayor.
+
+  6.- Preparar los Datos
+    - Pasos generales para preparar los datos:
+      - Encontrar los datos que necesitamos
+      - Inspeccionar y limpiar los datos
+      - Explorar los datos
+      - Moldear los datos para obtener unos datos limpios/aptos (tidy data)
+        Tidy data: conjuntos de datos que son fáciles de manipular, modelar y visualizar, y que tienen una estructura específica
+          - Cada variable es una columna
+          - Cada observación es una fila
+          - Cada tipo de unidad de observación es una tabla
+      - el 50-80% del tiempo empleado en un proyecto de ML es la obtención, limpieza y organización de los datos
+
+    6.1.- Obtener los datos:
+      - Fiabilidad de la fuente de datos: datos del gobierno o entidades científicas, datos de compañías o profesionales, universidades, etc.
+      - Reglas:
+        - Cuanto más cerca estén los datos a lo que quieres predecir mejor
+        - Los datos nunca estarán en el formato que necesitas
+        - Predecir de manera precisa eventos raros (anomalías) es difícil
+        - Haz un seguimiento de cómo manipulas los datos (para poder replicar o revisar los cálculos)
+      - Eliminar datos: no usados, sin valor, duplicados o correlacionados (en diferente formato)
+
+    6.2.- Modelar los datos:
+      - es posible que sea necesario: ajustar los tipos de datos y crear nuevas columnas
+
+  7.- Seleccionar el Algoritmo:
+    - Función del algoritmo: es el motor que transforma los datos de entrenamiento en un modelo matemático para predecir sobre otros conjuntos de datos
+    - Pasos para la selección:
+      - Usar la frase de la solución para obtener el algoritmo
+      - Discutir los mejores algoritmos para el problema (+50 algoritmos de ML)
+      - Seleccionar un algorimo inicial
+        - Comparar factores: (hay diferentes opiniones sobre qué factores son importantes)
+          ej:
+            - Tipo de aprendizaje: cada algoritmo es más apto para resolver un tipo de problemas u otros
+              * en nuestro caso es un model de predicción por lo que es un método de -> Aprendizaje Supervisada (28 algoritmos)
+            - El tipo de resultado: hay dos tipos de resultados
+              - Regresión: generan valores contínuos, cualquier cambio en el valor de entrada cambiar el resultado
+                ej: precio de la vivienda: número de habitaciones, metros cuadrados, etc.
+              - Clasificación: generan valores discretos (true-false, rangos, valores enumerados), el cambio de los datos de entrada puede o no alterar el resultado (la clasificación) de salida
+                ej: si una foto de una animal es un perro, gato o caballo
+              * en nuestro caso el resultado es True o False (la persona tiene o no diabetes), por lo que es un algoritmo de clasificación (clasificación binaria) (20 algoritmos)
+            - La complejidad
+              * vamos a eliminar algoritmos ensamblados (algoritmos que usan subalgoritmos) por ser complejos para nuestro caso y para mejorar el rendimiento (14 algoritmos)
+            - Si es básico o habilitado (enhanced)
+              - básico: más simples que los enhanced y más sencillos de entender
+              - enhanced: son variaciones de los algoritmos básicos, tienen mejor rendimiento, mayor funcionalidad, más complejos de entender
+              * elegimos los básicos por temas de sencillez, nos quedamos con los siguientes algoritmos seleccionados:
+                - Naive Bayes:
+                  - basado en probabilidad
+                  - todas las características (de los datos de entrada) tienen el mismo peso y es independiente de las otras
+                - Logistic Regression:
+                  - devuelve un resultado binario
+                  - mide la relación entre las características y les de un peso a cada una
+                - Decission Tree:
+                  - se basa en un árbol binario
+                  - cada nodo contiene el predicado para obtener la decisión
+                  - requiere suficientes datos para poder generar el árbol de decisión a utilizar
+                  * seleccionamos Naive Bayes como algoritmo para solucionar nuestro problema (es sencillo, rápido, es estable en cuanto a los datos de entrada)
+                - Random Forest:
+                  - es un algoritmo ensamblado (compuesto)
+                  - basado en árboles de decisión
+                  - crea múltiples árboles de decisión con subconjuntos de los datos proporcionados
+                  - hace medias de los resultados de los árboles y ajusta mediante overfitting de los resultados
+
+  8.- Entrenando el Modelo:
+    - dejar que un conjunto de datos específicos enseñen a crear un modelo predictivo al algoritmo de ML
+    - se puede reentrenar pasando un nuevo conjunto de datos específico
+    - División de los datos
+      - datos de entrenamiento: deben representar el 70% del total de los datos
+      - datos de test (probar el modelo generado): deben representar el 30% de los datos
+    - Scikit-learn:
+      - es una librería python que nos proporciona utilidades para tareas de entrenamiento y evaluación de ML
+        - división de datos (entrenamiento y pruebas)
+        - pre-procesado de datos (antes del entrenamiento)
+        - filtrado de características de los datos
+        - entrenmiento del modelo
+        - tuneado del modelo (para mejores resultados)
+      - ofrece una interfaz común a todos los algoritmos ML
+    - Datos que faltan es un problema común, psibles soluciones:
+      - ignorar
+      - eliminar las filas con valores que faltan
+      - reemplazar los valores que faltan por otros: la media, mediana (imputing)
+
+  9.- Probando el Modelo:
+    - Pasos:
+      - se usará un conjunto de datos nuevos para probar el modelo
+      - se interpretarán los resultados
+      - se verá como se podrán mejorar los resultados (cambiando el modelo)
+        - Ajustar el algoritmo (hiper parámetros)
+        - Conseguir más datos o mejorar los existentes
+        - Mejorar el entrenamiento
+        - Cambiar de algoritmo por uno que se ajuste mejor a nuestros datos
+          * en nuestro caso vamos a probar Random Forest (hace overfitting)
+            obtenemos un oferfitting excesivo
+          * pasamos a usar otro alg. como Logistic Regression
+
+    - ¿por qué el overfitting es malo?
+      - crea un límite/borde de decisión excesivamente complejo (se adapta mucho a los datos de entrenamiento)
+      - encaja bien en los datos de entrenamiento pero mal en los datos de pruebas (test)
+      - corregir el ovefitting
+        - los algoritmos suelen tener parámetros para esto (hyper parameters)
+          - Regularization Hyperparameter para corregir el overfitting
+          - Cross Validation (se usan múltiples subconjuntos de los datos de entrenamiento a la hora de entrenar el modelo)
+        - Bias Variance Trade Off: es el término que aplica a todos los algoritmos, y consiste en: se trata de sacrificar cierta perfección del algoritmo para mejorar el funcionamiento global del modelo
+
+    - Clases desbalanceadas
+      - cuando tenemos más datos de un caso q de otro en el conjunto de datos (ej: 150 casos de no diabetes vs 35 casos de diabetes)
+      - puede causar que el algoritmo genere un modelo de predicción con peores resultados
+      - existe un hyperparámetro para compensar los datos desbalanceados en los algoritmos (class_weight="balanced")
+
+    - Cross Validation (K-Fold)
+      - se puede hacer cross validation en los algoritmos, esto es:
+        - se dividen los datos de entrada en varios subconjuntos
+          - 1 subconjunto para validación
+          - el resto para entrenamiento
+          - se obtiene un resultado haciendo una "media" de todos los resultados con los subconjuntos de entrenamiento
+        - se entrena el modelo con todas las variantes posibles de subconjunto de validación + subconjuntos de entrenamiento
+              por ej: si hay 4 subconjuntos -> V = subc. validación y T = subc. entrenamiento
+                V-T-T-T
+                T-V-T-T
+                T-T-V-T
+                T-T-T-V
+          se obtienen los mejores hyperparámetros para cada una de las combinaciones y se hace la media de los hyperparámetros con cada una de las combinaciones probadas
+      - las librerías de python proporcionan una versión de cada algoritmo con Cross Validation para obtener modelos de predicción más precisos
+      - estas versiones de algoritmos con cross validation son más lentos como es obvio
+
+
+
+
+
+
+
